@@ -2,9 +2,20 @@
 
 import { NavMap } from "@/components/navMap"
 import { useAppSelector } from "@/store/store"
+import { usePathname, useRouter } from "next/navigation"
+import { useEffect } from "react"
 
 export const Sidebar = () => {
     const user = useAppSelector(state => state.user.data)
+    const pathname = usePathname()
+    const router = useRouter()
+
+    useEffect(() =>{
+      if(pathname !== '/' && !user.username){
+        router.push('/')
+    }
+    }, [user])
+
     return  (
         <div className="hidden lg:flex flex-col w-2/5 h-screen bg-element bg-gradient-to-b from-[#19476C] to-[#0D3251] justify-between items-center">
             <div className="mt-60">

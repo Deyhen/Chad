@@ -44,11 +44,11 @@ export const NavMap: React.FC<ProgressStepsProps> = ({ steps }) => {
               className={`w-8 h-8 rounded-full flex items-center justify-center ${
                 currentIndex === index ?  
                       step.isCompleted ? 
-                          'bg-element text-white outline-offset-4 outline-2 outline-element outline border-2 border-element' 
+                          'bg-element text-white outline-offset-4 outline-2 outline-element outline border-2 border-element mt-1.5' 
                           : 
                           'border-2 border-element'
                       :
-                      currentIndex > index ?
+                      currentIndex > index && step.isCompleted ?
                         'bg-element text-white border-2 border-element'
                         :
                         step.isCompleted ? 
@@ -71,7 +71,8 @@ export const NavMap: React.FC<ProgressStepsProps> = ({ steps }) => {
           </div>
           {index < steps.length - 1 && (
               <div className={`${step.isCompleted && step.route === pathname ? 'mt-1.5 h-9 ' : 'h-10 '} border-l-2 ml-[15px] 
-                              ${step.isCompleted ? 'border-element' : 'border-navmap_secondary'}`}/>
+                              ${step.isCompleted ? 'border-element' : 'border-navmap_secondary'}
+                               `}/>
           )}
         </div>
       ))}
