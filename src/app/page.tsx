@@ -1,101 +1,60 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import { MyButton } from "@/components/common/myButton";
+import { MyInput } from "@/components/common/myInput";
+import { ChadLogo } from "@/components/icons/chadLogo";
+import { NavLane } from "@/components/navLane";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { signUp } from "@/store/user/actions";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+export default function SignUp() {
+  const dispatch = useAppDispatch()
+  const router = useRouter()
+  const user = useAppSelector(state => state.user.data)
+
+  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleRegistration = () => {
+
+    if(email && username && password){
+      dispatch(signUp({email: email, username: username, password: password}))
+      router.push('/connect-shopify')
+    }else{
+      alert('Incorrect data')
+    }
+  }
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+    <div className="">
+      <div className="flex text-3xl font-bold text-main_text mb-4 md:mb-8">
+        <ChadLogo width="40" height="40"/> 
+        <span>Chad</span>
+      </div>
+      <div className="lg:hidden flex">
+        <NavLane steps={[
+                  {route: '/', isCompleted: user.username ? true: false},
+                  {route: '/connect-shopify', isCompleted: user.store ? true: false},
+                  {route: '/connect-gmail', isCompleted: user.gmailConnected ? true: false},
+                  {route: '/done', isCompleted: user.done ? true: false}]}/>
+      </div>
+      <span className="flex flex-col mt-6">
+        <h1 className=" text-2xl font-bold text-main_text mb-2 md:mb-4">Welcome to Chad</h1>
+        <p className="text-secondary_text md:text-base text-sm mb-2">Go live in 10 minutes! Our self-service widget empowers your customers to manage orders and track shipments 24/7 without driving you crazy.</p>
+      </span>
+      <form>
+        <MyInput value={email} onChange={(e) => setEmail(e.target.value)} label="Email" placeholder="megachad@trychad.com" type="email"/>
+        <MyInput value={username} onChange={(e) => setUsername(e.target.value)} label="Your name" placeholder="Mega Chad" type="text"/>
+        <MyInput value={password} onChange={(e) => setPassword(e.target.value)} label="Password" type="password" placeholder="Enter password"/>
+        <MyButton content="Create account" className="mt-12" onClick={handleRegistration}/>
+          <div className="flex justify-center items-center text-sm mt-2">
+            <span className="text-secondary_text mr-1">Already have an account?</span>
+            <a className="no-underline text-element ">Login</a>
+          </div>
+      </form>
     </div>
   );
 }
