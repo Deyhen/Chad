@@ -99,7 +99,7 @@ export default function SignUp() {
                   </ErrorMessage>
               )}
           </div>
-          <MyButton content="Create account" type="submit" className="mt-8" />
+          <MyButton content="Create account" type="submit" className="mt-12" />
           <div className="flex justify-center items-center text-sm mt-2">
             <span className="text-secondary_text mr-1">Already have an account?</span>
             <a className="no-underline text-element ">Login</a>

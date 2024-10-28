@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning={true}>
         <body className="flex">
           <Sidebar/>
-          <div className="relative w-full h-screen flex justify-center items-center">
+          <div className="relative w-full min-h-fit h-screen h- flex justify-center items-center">
             <Image src={backgroundImage} className="hidden md:flex absolute -z-10 w-full h-screen" width={1200} height={1200} alt='background'/>
             <div className="flex flex-col shadow-lg px-6 py-2 md:px-10 md:py-16 h-full w-full md:h-auto md:max-w-[480px] rounded-lg bg-white">
               {children}
