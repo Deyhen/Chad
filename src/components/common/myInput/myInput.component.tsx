@@ -1,11 +1,12 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { InputHTMLAttributes, useState } from 'react';
 import { MyInputProps } from './myInput.props';
 import { EyeOff } from '@/components/icons/eyeOff';
 import { EyeOn } from '@/components/icons/eyeOn';
+import { useField } from 'formik';
 
-export const MyInput: React.FC<MyInputProps> = ({
+export const MyInput = ({
   label,
   labelStyle,
   id,
@@ -13,9 +14,9 @@ export const MyInput: React.FC<MyInputProps> = ({
   type,
   placeholder,
   ...props
-}) => {
+}: MyInputProps & InputHTMLAttributes<HTMLInputElement>) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
+  const [field, meta] = useField(props);
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
@@ -28,9 +29,11 @@ export const MyInput: React.FC<MyInputProps> = ({
         </label>
       )}
       <input
+
         id={id}
         placeholder={placeholder}
-        className={`w-full p-2 pr-10 transition-colors placeholder:text-gray-500 text duration-300 outline-none rounded-lg bg-[#F8F9FC] border-white border hover:bg-white hover:border-secondary_text ${className}`}
+        className={`${className} w-full p-2 pr-10 transition-colors placeholder:text-gray-500 text duration-300 outline-none rounded-lg bg-[#F8F9FC] 
+                  ${meta.error && meta.touched ? 'border-red-600' : 'border-white hover:border-secondary_text'}  border hover:bg-white`}
         type={type === 'password' ? 
             !isPasswordVisible ? 
                 'password' 
@@ -38,6 +41,7 @@ export const MyInput: React.FC<MyInputProps> = ({
                 'text' 
             : type}
           {...props}
+          {...field}
       />
       {type === 'password' && (
         <button

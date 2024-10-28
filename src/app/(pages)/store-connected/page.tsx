@@ -23,10 +23,10 @@ const StoreConnected = () => {
             <Image alt="raccoon image" src={raccoon} width={400} height={400} className="w-20 h-20 mb-8"/>
             <h1 className="text-2xl font-semibold">Store connected</h1>
             <h2 className="text-sm text-secondary_text mb-4">Chad is now able to manage customer support requests for {store}.</h2>
-            <Link href="/connect-gmail"><MyButton content="Continue"/></Link>
+            <Link href="/connect-gmail" className="w-full"><MyButton content="Continue"/></Link>
             <div className="text-sm text-secondary_text mt-2">
                 <span className="mr-1">Wrong store?</span>
-                <a className="no-underline text-element cursor-pointer" onClick={() => {}}>Connect another one</a>
+                <Link href="/store-connected" className="no-underline text-element cursor-pointer" >Connect another one</Link>
             </div>
         </div>
     )
